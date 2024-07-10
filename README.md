@@ -56,6 +56,26 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 ```
+- Install Dependencies
+
+```
+go mod tidy
+
+```
+
+- Build the Project
+
+```
+go build
+
+```
+
+- Run the project
+
+```
+go run main.go
+
+```
 
 ## Code Structure
 
