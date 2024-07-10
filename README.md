@@ -105,9 +105,3 @@ A User represents a user entity with associated information. Here are the proper
 ## API Documentation
 
 [API Documentation](APIs.md)
-
-## Tests
-
-- run `npm run test` to run tests
-- run `npm run test:coverage` to get coverage report
-- Test Coverage [Report](coverage/lcov-report/index.html)
