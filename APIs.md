@@ -93,9 +93,6 @@ Retrieves a list of ToDo items for a specific user.
 ```json
 {
   "user_id": "96d9a69b-3e7f-11ef-8968-e454e835abe7",
-  "status": "pending", // optional
-  "limit": 10, // optional, default is 10
-  "page": 1 // optional, default is 1
 }
 
 
@@ -116,7 +113,6 @@ Retrieves a list of ToDo items for a specific user.
     "created": "2024-07-10T12:00:00Z",
     "updated": "2024-07-10T12:00:00Z"
   },
-  ...
 ]
 
 
