@@ -60,21 +60,18 @@ CREATE TABLE IF NOT EXISTS users (
 
 ```
 go mod tidy
-
 ```
 
 - Build the Project
 
 ```
 go build
-
 ```
 
 - Run the project
 
 ```
 go run main.go
-
 ```
 
 ## Code Structure
