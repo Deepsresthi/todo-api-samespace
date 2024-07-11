@@ -22,21 +22,17 @@ func main() {
 	config.InitScyllaDB(scyllaConfig)
 	defer config.CloseScyllaDB()
 
-	// Initialize Gorilla Mux router
-	// r := mux.NewRouter()
-
-	// Register routes from routes.go
 	r := routes.RegisterRoutes()
 
-	// CORS configuration
+	
 	headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
 	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
 	origins := handlers.AllowedOrigins([]string{"*"})
 
-	// Create HTTP server with CORS middleware
+	
 	srv := &http.Server{
 		Handler:      handlers.CORS(headers, methods, origins)(r),
-		Addr:         ":8080", // Update with your desired host and port
+		Addr:         ":8080", 
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}

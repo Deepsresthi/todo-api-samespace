@@ -16,10 +16,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Generate a new UUID for the user ID
 	userID := gocql.TimeUUID()
 
-	// Convert UUID to string before assigning to user.UserID
 	user.UserID = userID
 
 	if err := user.Save(); err != nil {
@@ -27,7 +25,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Return the created user with HTTP status 201 Created
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(user)

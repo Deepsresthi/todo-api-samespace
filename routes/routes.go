@@ -12,7 +12,7 @@ func RegisterRoutes() *mux.Router {
 	// User routes
 	r.HandleFunc("/users", controllers.CreateUser).Methods("POST")
 
-	//to-do list
+	//todo routes
 	r.HandleFunc("/todo", controllers.CreateTodoItem).Methods("POST")
 	r.HandleFunc("/todo", controllers.GetTodoItems).Methods("GET")
 	r.HandleFunc("/todo/{id}", controllers.UpdateTodoItem).Methods("PUT")
@@ -20,7 +20,6 @@ func RegisterRoutes() *mux.Router {
 
 	r.HandleFunc("/todo/{userID}/{status}", controllers.GetTodoItemsByStatus).Methods("GET")
 
-	// User routes
 	r.HandleFunc("/todo/sort", controllers.GetSortTodoItems).Methods("POST")
 
 	return r

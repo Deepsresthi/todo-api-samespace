@@ -96,32 +96,26 @@ func GetSortTodoItems(userID string, sort string, limit int) ([]TodoItem, error)
 	var query string
 	var items []TodoItem
 
-	// Validate sort order (optional)
 	if sort != "ASC" && sort != "DESC" {
 		return nil, fmt.Errorf("invalid sort order. Allowed values: ASC, DESC")
 	}
 
-	// Construct query based on sort order
 	query = `SELECT id, user_id, title, description, status, created, updated, created_unix 
             FROM todo 
             WHERE user_id = ? 
             ORDER BY created_unix %s 
             LIMIT ?`
 
-	// Format the query with the appropriate sort order
 	query = fmt.Sprintf(query, sort)
 
 	fmt.Println("Query:", query)
-	// Execute query
 	iter := config.Session.Query(query, userID, limit).Iter()
 
-	// Iterate through results and populate items
 	var item TodoItem
 	for iter.Scan(&item.ID, &item.UserID, &item.Title, &item.Description, &item.Status, &item.Created, &item.Updated, &item.CreatedUnix) {
 		items = append(items, item)
 	}
 
-	// Check for errors during iteration
 	if err := iter.Close(); err != nil {
 		return nil, err
 	}

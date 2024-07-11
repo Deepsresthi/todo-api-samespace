@@ -24,13 +24,12 @@ func CreateTodoItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Convert user_id string to gocql.UUID
 	userID, err := gocql.ParseUUID(item.UserID)
 	if err != nil {
 		http.Error(w, "Invalid user_id", http.StatusBadRequest)
 		return
 	}
-	item.UserID = userID.String() // Convert back to string if needed
+	item.UserID = userID.String()
 
 	if err := item.Save(); err != nil {
 		views.ErrorResponse(w, http.StatusInternalServerError, err.Error())
@@ -43,41 +42,28 @@ func CreateTodoItem(w http.ResponseWriter, r *http.Request) {
 func GetTodoItems(w http.ResponseWriter, r *http.Request) {
 	var req TodoRequest
 
-	// Decode JSON request body
-	// Decode request body
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		views.ErrorResponse(w, http.StatusBadRequest, "Invalid request body")
 		return
 	}
 
-	// Check if user_id is provided
 	if req.UserID == "" {
 		views.ErrorResponse(w, http.StatusBadRequest, "user_id is required")
 		return
 	}
 
-	// Parse user_id to gocql.UUID
-	// userID, err := gocql.ParseUUID(req.UserID)
-	// if err != nil {
-	// 	views.ErrorResponse(w, http.StatusBadRequest, "invalid UUID")
-	// 	return
-	// }
-
-	// Retrieve status and limit from URL query parameters
 	status := r.URL.Query().Get("status")
 	limit, err := strconv.Atoi(r.URL.Query().Get("limit"))
 	if err != nil || limit == 0 {
 		limit = 10
 	}
 
-	// Call the refactored GetTodoItems function
 	items, err := models.GetTodoItems(req.UserID, status, limit)
 	if err != nil {
 		views.ErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	// Return the response with the todo items
 	views.SuccessResponse(w, items)
 }
 
@@ -147,21 +133,18 @@ func GetTodoItemsByStatus(w http.ResponseWriter, r *http.Request) {
 func GetSortTodoItems(w http.ResponseWriter, r *http.Request) {
 	var req TodoRequest
 
-	// Decode request body
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		views.ErrorResponse(w, http.StatusBadRequest, "Invalid request body")
 		return
 	}
 
-	// Validate user ID
 	if req.UserID == "" {
 		views.ErrorResponse(w, http.StatusBadRequest, "user_id is required")
 		return
 	}
 
-	// Default values
 	limit := 10
-	sort := "ASC" // Default sorting order
+	sort := "ASC"
 
 	if req.Sort != "" {
 		sort = strings.ToUpper(req.Sort)
@@ -171,7 +154,6 @@ func GetSortTodoItems(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// Call models function and handle errors
 	items, err := models.GetSortTodoItems(req.UserID, sort, limit)
 	if err != nil {
 		views.ErrorResponse(w, http.StatusInternalServerError, err.Error())
@@ -179,7 +161,6 @@ func GetSortTodoItems(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if items == nil {
-		// Handle the case where the response is nil
 		views.SuccessResponse(w, "No todo items found")
 	} else {
 		views.SuccessResponse(w, items)
