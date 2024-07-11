@@ -20,5 +20,8 @@ func RegisterRoutes() *mux.Router {
 
 	r.HandleFunc("/todo/{userID}/{status}", controllers.GetTodoItemsByStatus).Methods("GET")
 
+	// User routes
+	r.HandleFunc("/todo/sort", controllers.GetSortTodoItems).Methods("POST")
+
 	return r
 }
