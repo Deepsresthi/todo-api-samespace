@@ -10,7 +10,7 @@ import (
 
 type TodoItem struct {
 	ID          gocql.UUID `json:"id"`
-	UserID      string     `json:"user_id"` 
+	UserID      string     `json:"user_id"`
 	Title       string     `json:"title"`
 	Description string     `json:"description"`
 	Status      string     `json:"status"`
@@ -68,4 +68,26 @@ func (item *TodoItem) Update() error {
 
 func DeleteTodoItem(id gocql.UUID) error {
 	return config.Session.Query(`DELETE FROM todo WHERE id = ?`, id).Exec()
+}
+
+func GetTodoItemsByStatus(userID string, status string) ([]TodoItem, error) {
+	var query string
+	var args []interface{}
+
+	query = `SELECT id, user_id, title, description, status, created, updated FROM todo WHERE user_id = ? AND status = ? ALLOW FILTERING`
+	args = append(args, userID, status)
+
+	iter := config.Session.Query(query, args...).Iter()
+
+	var items []TodoItem
+	var item TodoItem
+	for iter.Scan(&item.ID, &item.UserID, &item.Title, &item.Description, &item.Status, &item.Created, &item.Updated) {
+		items = append(items, item)
+	}
+
+	if err := iter.Close(); err != nil {
+		return nil, err
+	}
+
+	return items, nil
 }

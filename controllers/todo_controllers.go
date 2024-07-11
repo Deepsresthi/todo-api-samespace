@@ -129,3 +129,33 @@ func DeleteTodoItem(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusNoContent)
 }
+
+func GetTodoItemsByStatus(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	userIDStr := vars["userID"]
+	status := vars["status"]
+
+	if userIDStr == "" {
+		views.ErrorResponse(w, http.StatusBadRequest, "userID is required")
+		return
+	}
+
+	if status == "" {
+		views.ErrorResponse(w, http.StatusBadRequest, "status is required")
+		return
+	}
+
+	userID, err := gocql.ParseUUID(userIDStr)
+	if err != nil {
+		views.ErrorResponse(w, http.StatusBadRequest, "invalid UUID")
+		return
+	}
+
+	items, err := models.GetTodoItemsByStatus(userID.String(), status)
+	if err != nil {
+		views.ErrorResponse(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	views.SuccessResponse(w, items)
+}

@@ -17,5 +17,8 @@ func RegisterRoutes() *mux.Router {
 	r.HandleFunc("/todo", controllers.GetTodoItems).Methods("GET")
 	r.HandleFunc("/todo/{id}", controllers.UpdateTodoItem).Methods("PUT")
 	r.HandleFunc("/todo/{id}", controllers.DeleteTodoItem).Methods("DELETE")
+
+	r.HandleFunc("/todo/{userID}/{status}", controllers.GetTodoItemsByStatus).Methods("GET")
+
 	return r
 }
