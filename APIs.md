@@ -1,5 +1,6 @@
 # API Documentation
 
+
 ## Create User
 
 ### POST /users
@@ -36,6 +37,8 @@ Creates a new user.
 }
 
 ```
+
+
 
 
 ## Create ToDo Item
@@ -82,6 +85,8 @@ Creates a new ToDo item.
 
 ```
 
+
+
 ## Get ToDo Item
 
 ### GET /todo
@@ -126,6 +131,8 @@ Retrieves a list of ToDo items for a specific user.
 }
 
 ```
+
+
 
 ## Update ToDo Item
 
@@ -172,6 +179,8 @@ Updates an existing ToDo item.
 
 ```
 
+
+
 ## Delete ToDo Item
 
 ### DELETE /todo/{id}
@@ -207,6 +216,8 @@ Deletes an existing ToDo item.
 }
 
 ```
+
+
 
 ## Filter ToDo Items by Status
 
@@ -267,6 +278,8 @@ Retrieves TODO items for a specified user filtered by status (e.g., pending, com
 }
 
 ```
+
+
 ## Sort ToDo Items
 
 ### POST /todo/sort
