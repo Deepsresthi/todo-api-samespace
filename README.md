@@ -2,6 +2,15 @@
  
 The ToDo application is a robust backend system designed to manage tasks efficiently. It provides a set of APIs that enable users to create, update, retrieve, and delete tasks (ToDo items) with associated details such as title, description, status, and timestamps. Built using Golang and ScyllaDB, the application leverages these technologies for high performance and scalability.
 
+## Architecture
+
+We have used MVC Framework for building the application;
+
+- `Models`: Represent data structures and interactions with the database (e.g., TodoItem, User).
+- `Views`: Responsible for rendering responses (e.g., success or error messages) to clients.
+- `Controllers`: Handle incoming requests, interact with models to fetch or modify data, and coordinate the flow of information between models and views.
+
+
 ## Running the code
 
 ### Prerequisites
