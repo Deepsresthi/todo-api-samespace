@@ -39,14 +39,16 @@ CREATE KEYSPACE todo WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replicati
 USE todo;
 
 CREATE TABLE todo (
-    id UUID PRIMARY KEY,
-    user_id UUID,
-    title TEXT,
-    description TEXT,
-    status TEXT,
-    created TIMESTAMP,
-    updated TIMESTAMP
-);
+  id uuid,
+  user_id text,
+  title text,
+  description text,
+  status text,
+  created timestamp,
+  updated timestamp,
+  created_unix bigint,
+  PRIMARY KEY ((user_id), created_unix)
+) WITH CLUSTERING ORDER BY (created_unix ASC);
 
 CREATE TABLE IF NOT EXISTS users (
     user_id TEXT PRIMARY KEY,
@@ -108,6 +110,7 @@ A TodoItem represents a task or item in a todo list. Here are the properties of 
 - `Status`: Current status of the todo item, such as 'pending', 'in progress', or 'completed'.
 - `Created`: The date and time when the todo item was created.
 - `Updated`: The date and time when the todo item was last updated.
+- `CreatedUnix`:  A field to store the creation timestamp as a Unix timestamp.
 
 ### User
 
