@@ -1,5 +1,6 @@
 # API Documentation
 
+
 ## Create User
 
 ### POST /users
@@ -36,6 +37,8 @@ Creates a new user.
 }
 
 ```
+
+
 
 
 ## Create ToDo Item
@@ -82,6 +85,8 @@ Creates a new ToDo item.
 
 ```
 
+
+
 ## Get ToDo Item
 
 ### GET /todo
@@ -126,6 +131,8 @@ Retrieves a list of ToDo items for a specific user.
 }
 
 ```
+
+
 
 ## Update ToDo Item
 
@@ -172,6 +179,8 @@ Updates an existing ToDo item.
 
 ```
 
+
+
 ## Delete ToDo Item
 
 ### DELETE /todo/{id}
@@ -207,6 +216,8 @@ Deletes an existing ToDo item.
 }
 
 ```
+
+
 
 ## Filter ToDo Items by Status
 
@@ -264,6 +275,62 @@ Retrieves TODO items for a specified user filtered by status (e.g., pending, com
 ```json
 {
   "error": "Invalid userID or status"
+}
+
+```
+
+
+## Sort ToDo Items
+
+### POST /todo/sort
+
+Retrieves TODO items for a specified user sorted by creation date.
+
+#### Request Body
+
+```json
+{
+  "sort": "desc",
+  "user_id": "d5b661dd-3f45-11ef-8b30-e454e835abe7"
+}
+
+```
+
+#### Response
+
+1. 200 OK
+
+```
+[
+  {
+    "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+    "title": "Complete Project Report",
+    "description": "Write a detailed report on the project progress.",
+    "status": "pending",
+    "user_id": "d5b661dd-3f45-11ef-8b30-e454e835abe7",
+    "created": "2024-07-10T12:00:00Z",
+    "updated": "2024-07-10T12:00:00Z"
+  },
+  {
+    "id": "b1c2d3e4-5678-90ab-cdef-2345678901bc",
+    "title": "Prepare Presentation",
+    "description": "Create slides for the project presentation.",
+    "status": "pending",
+    "user_id": "d5b661dd-3f45-11ef-8b30-e454e835abe7",
+    "created": "2024-07-10T12:30:00Z",
+    "updated": "2024-07-10T12:30:00Z"
+  }
+]
+
+
+
+```
+
+2. 400 Bad Request
+
+```json
+{
+  "error": "Invalid request body"
 }
 
 ```

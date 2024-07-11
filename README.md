@@ -2,6 +2,15 @@
  
 The ToDo application is a robust backend system designed to manage tasks efficiently. It provides a set of APIs that enable users to create, update, retrieve, and delete tasks (ToDo items) with associated details such as title, description, status, and timestamps. Built using Golang and ScyllaDB, the application leverages these technologies for high performance and scalability.
 
+## Architecture
+
+We have used MVC Framework for building the application;
+
+- `Models`: Represent data structures and interactions with the database (e.g., TodoItem, User).
+- `Views`: Responsible for rendering responses (e.g., success or error messages) to clients.
+- `Controllers`: Handle incoming requests, interact with models to fetch or modify data, and coordinate the flow of information between models and views.
+
+
 ## Running the code
 
 ### Prerequisites
@@ -39,14 +48,16 @@ CREATE KEYSPACE todo WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replicati
 USE todo;
 
 CREATE TABLE todo (
-    id UUID PRIMARY KEY,
-    user_id UUID,
-    title TEXT,
-    description TEXT,
-    status TEXT,
-    created TIMESTAMP,
-    updated TIMESTAMP
-);
+  id uuid,
+  user_id text,
+  title text,
+  description text,
+  status text,
+  created timestamp,
+  updated timestamp,
+  created_unix bigint,
+  PRIMARY KEY ((user_id), created_unix)
+) WITH CLUSTERING ORDER BY (created_unix ASC);
 
 CREATE TABLE IF NOT EXISTS users (
     user_id TEXT PRIMARY KEY,
@@ -108,6 +119,7 @@ A TodoItem represents a task or item in a todo list. Here are the properties of 
 - `Status`: Current status of the todo item, such as 'pending', 'in progress', or 'completed'.
 - `Created`: The date and time when the todo item was created.
 - `Updated`: The date and time when the todo item was last updated.
+- `CreatedUnix`:  A field to store the creation timestamp as a Unix timestamp.
 
 ### User
 
