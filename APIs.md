@@ -208,4 +208,64 @@ Deletes an existing ToDo item.
 
 ```
 
+## Filter ToDo Items by Status
+
+### GET /todo/{user_id}/{status}
+
+Retrieves TODO items for a specified user filtered by status (e.g., pending, completed).
+
+#### Request Body
+
+```json
+{}
+
+```
+
+#### Response
+
+1. 200 OK
+
+```
+[
+  {
+    "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+    "title": "Complete Project Report",
+    "description": "Write a detailed report on the project progress.",
+    "status": "pending",
+    "user_id": "96d9a69b-3e7f-11ef-8968-e454e835abe7",
+    "created": "2024-07-10T12:00:00Z",
+    "updated": "2024-07-10T12:00:00Z"
+  },
+  {
+    "id": "b1c2d3e4-5678-90ab-cdef-2345678901bc",
+    "title": "Prepare Presentation",
+    "description": "Create slides for the project presentation.",
+    "status": "pending",
+    "user_id": "96d9a69b-3e7f-11ef-8968-e454e835abe7",
+    "created": "2024-07-10T12:30:00Z",
+    "updated": "2024-07-10T12:30:00Z"
+  }
+]
+
+
+```
+
+2. 400 Bad Request
+
+```json
+{
+  "error": "Invalid userID or status"
+}
+
+```
+
+3. 404 Not Found
+
+```json
+{
+  "error": "Invalid userID or status"
+}
+
+```
+
 This documentation outlines how the API works, what it expects in terms of input, and what users can expect in terms of output. Adjust the endpoint path (/identify) and any other specific details as per your project setup.
