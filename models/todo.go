@@ -100,6 +100,7 @@ func GetSortTodoItems(userID string, sort string, limit int) ([]TodoItem, error)
 		return nil, fmt.Errorf("invalid sort order. Allowed values: ASC, DESC")
 	}
 
+	fmt.Println("Sort:", sort)
 	query = `SELECT id, user_id, title, description, status, created, updated, created_unix 
             FROM todo 
             WHERE user_id = ? 
